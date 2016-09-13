@@ -24,12 +24,22 @@ def shuffle_field():
     one of which is a empty space.
     """
     global EMPTY_MARK
+    EMPTY_MARK = ' ' + EMPTY_MARK
+    count = 0
     field = [i for i in range(1, 17)]
+    while True:
+        random.shuffle(field)
+        for element in field:
+            for i in field[field.index(element): len(field)]:
+                if element > i:
+                    count += 1
+        if count % 2 == 0:
+            break
+        else:
+            continue
     for elem in range(len(field)):
         field[elem] = '{0:02d}'.format(field[elem])
-    EMPTY_MARK = ' ' + EMPTY_MARK
-    field[-1] = EMPTY_MARK
-    random.shuffle(field)
+    field[field.index('16')] = EMPTY_MARK
     return field
 
 
