@@ -27,19 +27,19 @@ def shuffle_field():
     EMPTY_MARK = ' ' + EMPTY_MARK
     count = 0
     field = [i for i in range(1, 17)]
-    while True:
-        random.shuffle(field)
+    while True: 
+        random.shuffle(field) 
         for element in field:
             for i in field[field.index(element): len(field)]:
                 if element > i:
                     count += 1
-        if count % 2 == 0:
+        if count % 2 == 0: # !!! неправильно, тут учтено после 16. так не должно быть, подумай !!!
             break
         else:
             continue
     for elem in range(len(field)):
         field[elem] = '{0:02d}'.format(field[elem])
-    field[field.index('16')] = EMPTY_MARK
+    field[field.index('16')] = EMPTY_MARK # нет нет нет, никаких 16 не должно быть
     return field
 
 
