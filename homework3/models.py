@@ -4,7 +4,7 @@
 This module contains all the models we work with.
 """
 
-__author__ = 'adchizhov'
+__author__ = 'sobolevn'
 
 from utils import get_input_function
 
@@ -55,8 +55,8 @@ class BaseItem(object):
 class ToDoItem(BaseItem):
     def __str__(self):
         return '{} ToDo: {}'.format(
-                '+' if self.done else '-',
-                self.heading
+            '++' if self.done else '--',
+            self.heading
         )
 
     @classmethod
@@ -73,19 +73,17 @@ class ToBuyItem(BaseItem):
 
     def __str__(self):
         return '{} ToBuy: {} for {}'.format(
-                '+' if self.done else '-',
-                self.heading,
-                self.price,
+            '++' if self.done else '--',
+            self.heading,
+            self.price,
         )
 
-
     @classmethod
-    def construct (cls):
+    def construct(cls):
         input_function = get_input_function()
         heading = input_function('Input heading: ')
         price = input_function('Input price: ')
         return ToBuyItem(heading, price)
-
 
 
 class ToReadItem(BaseItem):
@@ -94,13 +92,14 @@ class ToReadItem(BaseItem):
         self.author = author
 
     def __str__(self):
-        return '{} ToRead: {} by {}'. format(
-            '+' if self.done else '-',
+        return '{} ToRead: {} by {}'.format(
+            '++' if self.done else '--',
             self.heading,
             self.author
         )
+
     @classmethod
-    def construct (cls):
+    def construct(cls):
         input_function = get_input_function()
         heading = input_function('Input heading: ')
         author = input_function('Input author: ')

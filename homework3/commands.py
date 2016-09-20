@@ -21,7 +21,7 @@ from models import (
 )
 from utils import get_input_function
 
-__author__ = 'adchizhov'
+__author__ = 'sobolevn'
 
 
 class BaseCommand(object):
@@ -109,9 +109,26 @@ class DoneCommand(BaseCommand):
     def label():
         return 'done'
 
-
     def perform(self, objects, *args, **kwargs):
-        pass
+        if len(objects) == 0:
+            print('There are no items in the list to be done!')
+            return
+
+        print('Select item type which you are done:')
+        for index, obj in enumerate(objects):
+            print('{}: {}'.format(index, str(obj)))
+
+        input_function = get_input_function()
+
+        while True:
+            try:
+                selection = int(input_function('Input number: '))
+                objects[selection].done = True
+                print ('Done (++)')
+                break
+            except ValueError:
+                print('Bad input, try again.')
+
 
 
 class UndoneCommand(BaseCommand):
@@ -119,9 +136,25 @@ class UndoneCommand(BaseCommand):
     def label():
         return 'undone'
 
-
     def perform(self, objects, *args, **kwargs):
-        pass
+        if len(objects) == 0:
+            print('There are no items in the list to be undone!')
+            return
+
+        print('Select object to be marked as undone')
+        for index, obj in enumerate(objects):
+            print('{}: {}'.format(index, str(obj)))
+
+        input_function = get_input_function()
+
+        while True:
+            try:
+                selection = int(input_function('Input number: '))
+                objects[selection].done = False
+                print ('Undone (--)')
+                break
+            except ValueError:
+                print('Bad input, try again.')
 
 class ExitCommand(BaseCommand):
     @staticmethod
@@ -129,4 +162,4 @@ class ExitCommand(BaseCommand):
         return 'exit'
 
     def perform(self, objects, *args, **kwargs):
-        raise UserExitException('See you next time!')
+        raise UserExitException('Bye bye...')

@@ -22,7 +22,7 @@ from models import (
 )
 from utils import get_input_function
 
-__author__ = 'adchizhov'
+__author__ = 'sobolevn'
 
 
 def get_routes():
@@ -54,8 +54,8 @@ def perform_command(command):
         command_class = routes[command]
         command_inst = command_class()
 
-        storage = Storage()
-        command_inst.perform(storage.items)
+        storage = Storage() #####
+        command_inst.perform(storage.items) #####
     except KeyError:
         print('Bad command, try again.')
     except UserExitException as ex:

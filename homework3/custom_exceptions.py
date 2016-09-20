@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'adchizhov'
+__author__ = 'sobolevn'
 
 
 class UserExitException(KeyboardInterrupt):
