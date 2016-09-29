@@ -45,6 +45,18 @@ class BaseCommand(object):
         """
         raise NotImplemented()
 
+    @staticmethod
+    def choose_index():
+        input_function = get_input_function()
+        selection = None
+        while True:
+            try:
+                selection = int(input_function('Input number: '))
+                break
+            except ValueError:
+                print('Bad input, try again.')
+        return selection
+
 
 class ListCommand(BaseCommand):
     @staticmethod
@@ -58,6 +70,35 @@ class ListCommand(BaseCommand):
 
         for index, obj in enumerate(objects):
             print('{}: {}'.format(index, str(obj)))
+
+class RemoveCommand(BaseCommand):
+    @staticmethod
+    def label():
+        return 'remove'
+
+    @staticmethod
+    def _load_item_classes():
+        classes = {
+            'ToDoItem': ToDoItem,
+            'ToBuyItem': ToBuyItem,
+            'ToReadItem': ToReadItem
+        }
+        return dict(classes)
+    def perform(self, objects, *args, **kwargs):
+        classes = self._load_item_classes()
+
+        if len(objects) == 0:
+            print('There is nothing to remove.')
+            return
+
+        for index, obj in enumerate(objects):
+            print('{}: {}'.format(index, str(obj)))
+
+        selection = self.choose_index()
+
+        removed_item = objects.pop(selection)
+        print('Removed {}'.format(str(removed_item)))
+        print()
 
 
 class NewCommand(BaseCommand):
@@ -81,15 +122,7 @@ class NewCommand(BaseCommand):
         for index, name in enumerate(classes.keys()):
             print('{}: {}'.format(index, name))
 
-        input_function = get_input_function()
-        selection = None
-
-        while True:
-            try:
-                selection = int(input_function('Input number: '))
-                break
-            except ValueError:
-                print('Bad input, try again.')
+        selection = self.choose_index()
 
         selected_key = list(classes.keys())[selection]
         selected_class = classes[selected_key]

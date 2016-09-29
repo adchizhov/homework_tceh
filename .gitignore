@@ -1,4 +1,4 @@
 *.log
 *.pyc
-homework/__pycache__
+homework3/__pycache__
 __pycache__/*.pyc
