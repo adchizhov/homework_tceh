@@ -15,6 +15,6 @@ class BlogPostForm(FlaskForm):
         validators.Length(min=10, max=3500),
     ])
     author = StringField(label='Author', validators=[
-        validators.Regexp(r"[A-z]{3,}\s[A-z]{3,}", flags=re.IGNORECASE,
+        validators.Regexp(r"[A-z]{3,15}\s[A-z]{3,20}", flags=re.IGNORECASE,
                           message='There must be a space between name and surname'),
     ])
