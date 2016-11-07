@@ -1,0 +1,20 @@
+{% extends "order_form/_base.html" %}
+
+{% block content %}
+  <div align="center">
+      <h3 class="uno"> First order form! </h3>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form action="{% url 'form' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" >
+    </form>
+  </div>
+{% endblock %}
